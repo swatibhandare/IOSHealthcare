@@ -31,20 +31,11 @@ class AddEventViewController: UIViewController {
             return formatter
         }
         
-        //1
+        //1 dateTimeUIField
+       //need to format the date
         
-        
-        //let dateTime = RelativeDateTimeFormatter(coder: dateTimeUIField)
-        
-        let formatter = dateTimeFormatter
-        formatter.dateTimeStyle = .numeric
-      // var date = formatter.dateTimeStyle(from: dateTimeUIField)
-        
-        
-        let datetimeFormatter = dateTimeFormatter
-        
-        
-        let modelInfo = EventModel(eventId: 1, userId: 1, eventName: eventNameUIField.text!, eventDateTime: datetimeFormatter.string(for: dateTimeUIField)!)
+        //
+        let modelInfo = EventModel(eventId: 1, userId: 1, eventName: eventNameUIField.text!, eventDateTime: "")
        
         
         let isSave = DatabaseManager.getInstance().addEvent(modelInfo)

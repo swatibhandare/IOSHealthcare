@@ -67,7 +67,9 @@ class DatabaseManager: NSObject{
     func addEvent(_ modelInfo:EventModel) -> Bool{
         shareInstance.database?.open()
         
-        shareInstance.database?.executeStatements("CREATE TABLE IF NOT EXISTS Event(eventId INTEGER,userId INTEGER, eventName TEXT, dateTime TEXT,PRIMARY KEY(eventId AUTOINCREMENT))")
+        shareInstance.database!.executeUpdate("ALTER TABLE EVENT MODIFY dateTime DATETIME; ", withArgumentsIn: [0])
+        
+        shareInstance.database?.executeStatements("CREATE TABLE IF NOT EXISTS Event(eventId INTEGER,userId INTEGER, eventName TEXT, dateTime DATETIME,PRIMARY KEY(eventId AUTOINCREMENT))")
         
         print("table created")
         
