@@ -1246,6 +1246,7 @@
                                             <constraints>
                                                 <constraint firstItem="M1p-qs-lf7" firstAttribute="top" secondItem="rsX-x9-Imk" secondAttribute="top" constant="30" id="abJ-64-35B"/>
                                                 <constraint firstItem="M1p-qs-lf7" firstAttribute="leading" secondItem="rsX-x9-Imk" secondAttribute="leading" constant="30" id="kfK-rW-yxN"/>
+                                                <constraint firstAttribute="bottom" secondItem="M1p-qs-lf7" secondAttribute="bottom" constant="5" id="xvB-aN-tYS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
