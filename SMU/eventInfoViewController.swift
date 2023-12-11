@@ -32,7 +32,8 @@ class eventInfoViewController: UIViewController, UITableViewDelegate, UITableVie
         var l = getAllDataInfo.object(at:  indexPath.row) as! EventModel
         
         cell.enameUIField.text! = l.eventName
-        cell.dateTimeUIField.text! = l.eventDateTime
+        cell.dateTimeUIField.text! = l.eventStartDateTime.description
+        cell.endDateTime.text! = l.eventEndDateTime.description
         return cell
     }
 }

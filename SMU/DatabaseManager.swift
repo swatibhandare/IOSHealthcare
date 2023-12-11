@@ -67,14 +67,13 @@ class DatabaseManager: NSObject{
     func addEvent(_ modelInfo:EventModel) -> Bool{
         shareInstance.database?.open()
         
-        shareInstance.database!.executeUpdate("ALTER TABLE EVENT MODIFY dateTime DATETIME; ", withArgumentsIn: [0])
+       // shareInstance.database!.executeUpdate("ALTER TABLE EVENT MODIFY dateTime DATETIME; ", withArgumentsIn: [0])
         
-        shareInstance.database?.executeStatements("CREATE TABLE IF NOT EXISTS Event(eventId INTEGER,userId INTEGER, eventName TEXT, dateTime DATETIME,PRIMARY KEY(eventId AUTOINCREMENT))")
+        shareInstance.database?.executeStatements("CREATE TABLE IF NOT EXISTS Event(eventId INTEGER,userId INTEGER, eventName TEXT, startDateTime DATETIME, endDateTime DATETIME, PRIMARY KEY(eventId AUTOINCREMENT))")
         
         print("table created")
         
-        
-        let isSave = shareInstance.database?.executeUpdate("INSERT INTO Event(eventName, userId, dateTime) VALUES (?, ?, ?)", withArgumentsIn: [modelInfo.eventName, "1", modelInfo.eventDateTime])
+        let isSave = shareInstance.database?.executeUpdate("INSERT INTO Event(eventName, userId, startDateTime, endDateTime) VALUES (?, ?, ?, ?)", withArgumentsIn: [modelInfo.eventName, "1", modelInfo.eventStartDateTime, modelInfo.eventEndDateTime])
         shareInstance.database?.close()
         
         return isSave!
@@ -86,16 +85,27 @@ class DatabaseManager: NSObject{
         
         let resultSet:FMResultSet! = shareInstance.database!.executeQuery("SELECT * from Event", withArgumentsIn: [0])
         
+        
+        shareInstance.database!.executeUpdate("ALTER TABLE Event Rename  dateTime to startDateTime; ", withArgumentsIn: [0])
+        
         let itemInfo:NSMutableArray = NSMutableArray()
         if(resultSet != nil){
             
             while resultSet.next(){
                 let item:EventModel = EventModel(
                     eventId: Int(resultSet.int(forColumn: "eventId")),
-                            userId: Int(resultSet.int(forColumn: "userId")), eventName: String(resultSet.string(forColumn: "eventName")!), eventDateTime: String(resultSet.string(forColumn: "dateTime")!))
+                            userId: Int(resultSet.int(forColumn: "userId")),
+                            eventName: String(resultSet.string(forColumn: "eventName")!),
+                            eventStartDateTime: String(resultSet.string(forColumn: "startDateTime")!),
+                            eventEndDateTime: String(resultSet.string(forColumn: "endDateTime")!)
+                )
+                
+                //
+               // Date(from: resultSet.date(forColumn: "startDateTime"))
                 
                 itemInfo.add(item)
             }
+            
         }
         shareInstance.database!.close()
         return itemInfo

@@ -11,5 +11,6 @@ struct EventModel{
     let eventId : Int
     let userId : Int
     let eventName : String
-    let eventDateTime : String
+    let eventStartDateTime : String
+    let eventEndDateTime : String
 }

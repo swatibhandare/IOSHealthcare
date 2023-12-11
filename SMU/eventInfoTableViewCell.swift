@@ -13,6 +13,9 @@ class eventInfoTableViewCell: UITableViewCell {
    
     
     @IBOutlet weak var dateTimeUIField: UILabel!
+    
+    @IBOutlet weak var endDateTime: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

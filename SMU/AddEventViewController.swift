@@ -14,7 +14,7 @@ class AddEventViewController: UIViewController {
     
     @IBOutlet weak var dateTimeUIField: UIDatePicker!
     
- 
+    @IBOutlet weak var endDateTimeUIField: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +31,15 @@ class AddEventViewController: UIViewController {
             return formatter
         }
         
-        //1 dateTimeUIField
-       //need to format the date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy dddd HH  MM SS FFF" // 2023 0011 17  12 00 002
+        let formattingDateString = dateFormatter.string(from: dateTimeUIField.date)
+        let endDateFormattingString = dateFormatter.string(from: endDateTimeUIField.date)
         
-        //
-        let modelInfo = EventModel(eventId: 1, userId: 1, eventName: eventNameUIField.text!, eventDateTime: "")
-       
+        //let initDate = dateFormatter.date(from:formattingDateString)!
+       // print("initDate: \(initDate)")
+        
+        let modelInfo = EventModel(eventId: 1, userId: 1, eventName: eventNameUIField.text!, eventStartDateTime: formattingDateString, eventEndDateTime: endDateFormattingString)
         
         let isSave = DatabaseManager.getInstance().addEvent(modelInfo)
         print(isSave)
@@ -50,6 +53,7 @@ class AddEventViewController: UIViewController {
          
         print(eventNameUIField.text!)
         print(dateTimeUIField.date)
+        print(endDateTimeUIField.date)
     }
     
     func showAlert(_ msg: String) {

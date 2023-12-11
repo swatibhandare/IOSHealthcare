@@ -45,6 +45,8 @@ class SignupViewController: UITableViewController {
                 // Go to homepage
                 //insert new entry in table with incrementing id
                 self.performSegue(withIdentifier: "goToHome", sender: self)
+                
+                //@Todo : create User table and add users in it
             }
         }
         
